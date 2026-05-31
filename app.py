@@ -1,4 +1,64 @@
 import streamlit as st
+import base64
+
+def get_base64(bin_file):
+    with open(bin_file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+img = get_base64("image.png")
+
+page_bg_img = f"""
+<style>
+
+.stApp {{
+    background-image: url("data:image/png;base64,{img}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}}
+
+[data-testid="stAppViewContainer"] {{
+    background-color: rgba(0,0,0,0.25);
+}}
+
+h1 {{
+    color: #FFD700 !important;
+    text-align: center;
+    text-shadow: 3px 3px 6px black;
+}}
+
+h2, h3 {{
+    color: #FFA500 !important;
+    text-shadow: 2px 2px 5px black;
+}}
+
+p, label, div {{
+    color: white !important;
+}}
+
+[data-testid="stDataFrame"] {{
+    background-color: rgba(255,255,255,0.92);
+    border-radius: 10px;
+    padding: 10px;
+}}
+
+.stButton > button {{
+    background-color: #ff9800;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+}}
+
+.stSuccess {{
+    font-size: 22px;
+    font-weight: bold;
+}}
+
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
 import pandas as pd
 import matplotlib.pyplot as plt
 
